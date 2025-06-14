@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const userRoutes = require('./routes/userRoutes');
-const productRoutes = require('./routes/productRoutes'); // Import product routes
+const productRoutes = require('./routes/productRoutes');
+const uploadRoutes = require('./routes/uploadRoutes'); // Import upload routes
+const path = require('path'); // Import the 'path' module
 
 dotenv.config();
 
@@ -22,8 +24,12 @@ mongoose.connect(process.env.MONGODB_URI, {
 .catch(err => console.log(err));
 
 // Use User Routes
-app.use('/api/users', userRoutes); // Mount user routes under /api/users
-app.use('/api/products', productRoutes); // Mount product routes under /api/products
+app.use('/api/users', userRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/upload', uploadRoutes);  // Mount upload routes under /api/upload
+
+// Make the 'uploads' directory statically accessible
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.get('/', (req, res) => {
   res.send('3D Furniture Store Backend is Running!');
