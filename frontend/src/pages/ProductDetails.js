@@ -4,12 +4,14 @@ import axios from 'axios';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { useCart } from '../context/CartContext'; // Import useCart
 
 function ProductDetails() {
-  const { id } = useParams(); // Get the product ID from the URL
+  const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { addToCart } = useCart(); // Access the addToCart function from the context
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -49,6 +51,10 @@ function ProductDetails() {
     return <div>Product not found</div>;
   }
 
+  const handleAddToCart = () => {
+    addToCart(product); // Call the addToCart function from the context
+  };
+
   return (
     <div>
       <h1>{product.name}</h1>
@@ -62,6 +68,7 @@ function ProductDetails() {
           <OrbitControls />
         </Canvas>
       </div>
+      <button onClick={handleAddToCart}>Add to Cart</button>
     </div>
   );
 }
