@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // Import useAuth
+import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext'; // Import useCart
 
 function Header() {
-  const { user, logout } = useAuth(); // Use the user object and logout function from the context
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const { cartItems } = useCart(); // Access cartItems from the context
 
   const handleLogout = () => {
     logout();
@@ -20,6 +22,9 @@ function Header() {
         <ul>
           <li>
             <Link to="/products">Products</Link>
+          </li>
+          <li>
+            <Link to="/cart">Cart ({cartItems.length})</Link> {/* Link to Cart */}
           </li>
           {user ? (
             <>

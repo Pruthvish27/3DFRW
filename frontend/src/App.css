@@ -148,3 +148,38 @@ form button:hover {
   padding: 10px;
   margin-top: 20px;
 }
+
+/* Add these styles to App.css */
+.cart-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.cart-item h3 {
+  margin-right: 10px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* Push quantity controls to the right */
+}
+
+.quantity-controls label {
+  margin-right: 5px;
+}
+
+.quantity-controls input {
+  width: 60px;
+  padding: 5px;
+  text-align: center;
+}
+
+.cart-item button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+}

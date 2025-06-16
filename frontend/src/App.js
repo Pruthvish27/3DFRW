@@ -6,15 +6,17 @@ import ProductDetails from './pages/ProductDetails';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Logout from './components/Logout';
-import Header from './components/Header'; // Import the Header component
-import Footer from './components/Footer'; // Import the Footer component
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Cart from './pages/Cart'; // Import Cart
+
 import './App.css';
 
 function App() {
   return (
     <Router>
       <div className="container">
-        <Header /> {/* Add the Header component */}
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<ProductList />} />
@@ -22,8 +24,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/cart" element={<Cart />} /> {/* Add the Cart route */}
         </Routes>
-        <Footer /> {/* Add the Footer component */}
+        <Footer />
       </div>
     </Router>
   );
