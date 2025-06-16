@@ -8,7 +8,8 @@ import Register from './pages/Register';
 import Logout from './components/Logout';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Cart from './pages/Cart'; // Import Cart
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout'; // Import Checkout
 
 import './App.css';
 
@@ -24,7 +25,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/cart" element={<Cart />} /> {/* Add the Cart route */}
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />  {/* Add Checkout Route */}
         </Routes>
         <Footer />
       </div>

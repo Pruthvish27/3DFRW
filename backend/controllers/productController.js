@@ -29,12 +29,24 @@ const upload = multer({
     }
 });
 
-// @desc   Get all products
+// @desc   Get all products with search and filter
 // @route  GET /api/products
 // @access Public
 const getAllProducts = async (req, res) => {
     try {
-        const products = await Product.find({}); // Fetch all products
+        const { searchTerm, category } = req.query;
+
+        let query = {}; // Base query
+
+        if (searchTerm) {
+            query.name = { $regex: searchTerm, $options: 'i' }; // Case-insensitive search
+        }
+
+        if (category) {
+            query.category = category;
+        }
+
+        const products = await Product.find(query);
         res.json(products);
     } catch (error) {
         console.error(error);
