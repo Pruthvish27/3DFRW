@@ -1,31 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import authService from '../services/authService';
+import { useAuth } from '../context/AuthContext'; // Import useAuth
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState(''); // For displaying error/success messages
+  const [message, setMessage] = useState('');
   const navigate = useNavigate();
+  const { login, user } = useAuth(); // Use the login function and user object from the context
 
   useEffect(() => {
-    // Check if user is already logged in
-    const user = authService.getCurrentUser();
     if (user) {
-      navigate('/'); // Redirect to home page if logged in
+      navigate('/');
     }
-  }, [navigate]);
+  }, [user, navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const userData = {
-        username,
-        password,
-      };
-      const user = await authService.login(userData);
+      await login({ username, password }); // Call the login function from the context
       setMessage('Login successful!');
-      // Redirect to home page or desired page
       navigate('/');
     } catch (error) {
       setMessage(error.response?.data?.message || 'Login failed');

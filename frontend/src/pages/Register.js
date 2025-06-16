@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import authService from '../services/authService';
+import { useAuth } from '../context/AuthContext'; // Import useAuth
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -8,26 +8,20 @@ function Register() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
+  const { register, user } = useAuth(); // Use the register function and user object from the context
 
   useEffect(() => {
-    // Check if user is already logged in
-    const user = authService.getCurrentUser();
     if (user) {
-      navigate('/'); // Redirect to home page if logged in
+      navigate('/');
     }
-  }, [navigate]);
+  }, [user, navigate]);
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const userData = {
-        username,
-        email,
-        password,
-      };
-      await authService.register(userData);
+      await register({ username, email, password }); // Call the register function from the context
       setMessage('Registration successful! Please login.');
-      navigate('/login'); // Redirect to login page
+      navigate('/login');
     } catch (error) {
       setMessage(error.response?.data?.message || 'Registration failed');
       console.error(error);
